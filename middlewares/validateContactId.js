@@ -4,7 +4,7 @@ const validateContactId = (schema) => {
   const func = (req, res, next) => {
     const { error } = schema.validate(req.params);
     if (error) {
-      next(HttpError(400, error.message));
+      next(HttpError(400, "Invalid id format"));
     }
     next();
   };
