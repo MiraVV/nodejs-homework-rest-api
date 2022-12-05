@@ -8,13 +8,17 @@ const ctrl = require("../../controllers/contacts");
 
 const { ctrlWrapper } = require("../../routes/api/helpers");
 
-const { validateBody } = require("../../middlewares");
+const { validateBody, validateContactId } = require("../../middlewares");
 
 const schemas = require("../../schemas/contacts");
 
 router.get("/", ctrlWrapper(ctrl.listContacts));
 
-router.get("/:contactId", ctrlWrapper(ctrl.getContactById));
+router.get(
+  "/:contactId",
+  validateContactId(schemas.contactSchema),
+  ctrlWrapper(ctrl.getContactById)
+);
 
 router.post(
   "/",
@@ -22,10 +26,15 @@ router.post(
   ctrlWrapper(ctrl.addContact)
 );
 
-router.delete("/:contactId", ctrlWrapper(ctrl.removeContact));
+router.delete(
+  "/:contactId",
+  validateContactId(schemas.contactSchema),
+  ctrlWrapper(ctrl.removeContact)
+);
 
 router.put(
   "/:contactId",
+  validateContactId(schemas.contactSchema),
   validateBody(schemas.contactSchema),
   ctrlWrapper(ctrl.updateContact)
 );
