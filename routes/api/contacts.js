@@ -28,13 +28,13 @@ router.post(
 
 router.delete(
   "/:contactId",
-  validateContactId(schemas.contactSchema),
+  validateContactId(schemas.contactIdSchema),
   ctrlWrapper(ctrl.removeContact)
 );
 
 router.put(
   "/:contactId",
-  validateContactId(schemas.contactSchema),
+  validateContactId(schemas.contactIdSchema),
   validateBody(schemas.contactSchema),
   ctrlWrapper(ctrl.updateContact)
 );

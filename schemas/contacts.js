@@ -8,6 +8,10 @@ const contactSchema = Joi.object({
   phone: Joi.string().required(),
 });
 
+const contactIdSchema = Joi.object({
+  contactId: Joi.string().required(),
+});
 module.exports = {
   contactSchema,
+  contactIdSchema,
 };
