@@ -9,7 +9,7 @@ const contactSchema = Joi.object({
 });
 
 const contactIdSchema = Joi.object({
-  contactId: Joi.string().required(),
+  contactId: Joi.string().alphanum().required(),
 });
 module.exports = {
   contactSchema,

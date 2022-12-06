@@ -1,6 +1,6 @@
 const { HttpError } = require("../routes/api/helpers");
 
-const validateContactId = (schema) => {
+const validateParams = (schema) => {
   const func = (req, res, next) => {
     const { error } = schema.validate(req.params);
     if (error) {
@@ -11,4 +11,4 @@ const validateContactId = (schema) => {
   return func;
 };
 
-module.exports = validateContactId;
+module.exports = validateParams;
