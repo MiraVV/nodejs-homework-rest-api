@@ -10,32 +10,27 @@ const { ctrlWrapper } = require("../../routes/api/helpers");
 
 const { validateBody, validateParams } = require("../../middlewares");
 
-const schemas = require("../../schemas/contacts");
+const { schemas } = require("../../models/contact");
 
 router.get("/", ctrlWrapper(ctrl.listContacts));
 
-router.get(
-  "/:contactId",
-  validateParams(schemas.contactIdSchema),
-  ctrlWrapper(ctrl.getContactById)
-);
+router.get("/:contactId", validateParams, ctrlWrapper(ctrl.getContactById));
 
-router.post(
-  "/",
-  validateBody(schemas.contactSchema),
-  ctrlWrapper(ctrl.addContact)
-);
+router.post("/", validateBody(schemas.addSchema), ctrlWrapper(ctrl.addContact));
 
-router.delete(
-  "/:contactId",
-  validateParams(schemas.contactIdSchema),
-  ctrlWrapper(ctrl.removeContact)
+router.delete("/:contactId", validateParams, ctrlWrapper(ctrl.removeContact));
+
+router.patch(
+  "/:contactId/favorite",
+  validateParams,
+  validateBody(schemas.updateFavoritSchema),
+  ctrlWrapper(ctrl.updateStatusContact)
 );
 
 router.put(
   "/:contactId",
-  validateParams(schemas.contactIdSchema),
-  validateBody(schemas.contactSchema),
+  validateParams,
+  validateBody(schemas.addSchema),
   ctrlWrapper(ctrl.updateContact)
 );
 
