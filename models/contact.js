@@ -23,6 +23,11 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
   },
   {
     versionKey: false,
@@ -30,6 +35,10 @@ const contactSchema = new Schema(
 );
 
 contactSchema.post("save", handleSchemaValidationErrors);
+
+const contactIdSchema = Joi.object({
+  contactId: Joi.string().alphanum().required(),
+});
 
 const addSchema = Joi.object({
   name: Joi.string().required(),
@@ -45,6 +54,7 @@ const updateFavoritSchema = Joi.object({ favorite: Joi.bool().required() });
 const schemas = {
   addSchema,
   updateFavoritSchema,
+  contactIdSchema,
 };
 const Contact = model("contact", contactSchema);
 

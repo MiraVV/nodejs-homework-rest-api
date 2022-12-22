@@ -1,4 +1,3 @@
-// const contactsOperations = require("../../models/contacts");
 const { Contact } = require("../../models/contact");
 
 const { HttpError } = require("../../routes/api/helpers");
