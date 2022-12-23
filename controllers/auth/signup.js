@@ -1,4 +1,6 @@
 const { Conflict } = require("http-errors");
+const gravatar = require("gravatar");
+
 const { User } = require("../../models/user");
 const bcrypt = require("bcryptjs");
 
@@ -8,6 +10,9 @@ const signup = async (req, res) => {
   if (user) {
     throw new Conflict(`409, Email ${email} in use`);
   }
+
+  const avatarURL = gravatar.url(email);
+
   // метод для проверки пароля
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
@@ -15,6 +20,7 @@ const signup = async (req, res) => {
     email,
     password: hashPassword,
     subscription,
+    avatarURL,
   });
 
   res.status(201).json({
@@ -25,6 +31,7 @@ const signup = async (req, res) => {
         email: email,
         subscription: subscription,
         password: password,
+        avatarURL,
       },
     },
   });
