@@ -5,9 +5,7 @@ const updateSubscription = async (req, res, next) => {
   const result = await User.findByIdAndUpdate(_id, req.body, {
     new: true,
   });
-  if (!result) {
-    throw HttpError(404, `Not found user with email ${email}`);
-  }
+
   res.json({
     status: "success",
     code: 200,
