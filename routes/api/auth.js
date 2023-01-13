@@ -4,10 +4,22 @@ const { ctrlWrapper } = require("../../routes/api/helpers");
 
 const { validateBody, auth, upload } = require("../../middlewares");
 const { auth: ctrl } = require("../../controllers");
-const { joiSignupSchema, joiLoginSchema } = require("../../models/user");
+const {
+  joiSignupSchema,
+  joiLoginSchema,
+  joiVerifyEmailSchema,
+} = require("../../models/user");
 const router = express.Router();
 
 router.post("/signup", validateBody(joiSignupSchema), ctrlWrapper(ctrl.signup));
+
+router.get("/verify/:verificationToken", ctrlWrapper(ctrl.verifyEmail));
+
+router.post(
+  "/verify",
+  validateBody(joiVerifyEmailSchema),
+  ctrlWrapper(ctrl.resendVerifyEmail)
+);
 
 router.post("/login", validateBody(joiLoginSchema), ctrlWrapper(ctrl.login));
 
